@@ -8,6 +8,8 @@ import  {HttpClient} from '@angular/common/http';
 })
 export class HttpTestComponent implements OnInit {
   someData = 'some data';
+  baseURL = 'http://media.mw.metropolia.fi/wbma/media';
+  mediaURL = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
   constructor(private http: HttpClient) { }
   getJSON(){
@@ -20,8 +22,16 @@ export class HttpTestComponent implements OnInit {
     });
   }
 
+  getMedia(){
+    this.http.get(this.baseURL).subscribe(data => {
+      console.log(data);
+      this.mediaURL += data[0].filename;
+    });
+  }
+
   ngOnInit() {
     this.getJSON();
+    this.getMedia();
   }
 
 }
